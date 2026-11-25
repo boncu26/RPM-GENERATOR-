@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RPM Generator | Perencanaan Pembelajaran Mendalam</title>
+<style>
+:root{--navy:#142b4a;--blue:#2463a6;--teal:#0f8b8d;--gold:#f2b84b;--bg:#f3f6fb;--ink:#203047;--muted:#64748b;--line:#dce5ef;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.55 "Segoe UI",Arial,sans-serif;color:var(--ink)}
+.hero{background:linear-gradient(120deg,#102744,#1f5c91 65%,#168b8d);color:white;padding:34px max(22px,calc((100% - 1180px)/2)) 30px}
+.hero .tag{display:inline-block;background:#ffffff20;border:1px solid #ffffff55;border-radius:30px;padding:5px 12px;font-size:12px;letter-spacing:.5px}
+.hero h1{font-size:clamp(25px,4vw,38px);line-height:1.15;margin:14px 0 8px}.hero p{max-width:780px;color:#e5eff8;margin:0}
+.wrap{max-width:1180px;margin:24px auto;padding:0 18px 60px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:22px}
+.sidebar{align-self:start;position:sticky;top:16px;background:white;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 8px 24px #1b365410}
+.sidebar strong{display:block;color:var(--navy);margin-bottom:12px}.navitem{display:flex;gap:10px;align-items:center;padding:9px 8px;border-radius:9px;color:#52647a;font-size:13px}.navitem b{width:23px;height:23px;display:grid;place-items:center;border-radius:7px;background:#edf3fa;color:var(--blue);font-size:12px}.sidebar .hint{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+main{min-width:0}.card{background:white;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:17px;box-shadow:0 7px 20px #1b365408}
+.cardhead{display:flex;align-items:flex-start;gap:12px;margin-bottom:17px}.num{flex:0 0 34px;height:34px;border-radius:10px;background:#eaf2fb;color:var(--blue);font-weight:800;display:grid;place-items:center}.card h2{font-size:19px;color:var(--navy);margin:0}.sub{color:var(--muted);font-size:13px;margin:3px 0 0}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+label{display:block;font-size:13px;font-weight:700;color:#34465d;margin:0 0 6px}
+input,select,textarea{width:100%;border:1px solid #ccd8e5;border-radius:9px;padding:10px 11px;font:14px "Segoe UI",Arial;color:var(--ink);background:#fff;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#4385c5;box-shadow:0 0 0 3px #4385c51c}textarea{min-height:84px;resize:vertical}
+.field{margin-bottom:13px}.small{font-size:12px;color:var(--muted);font-weight:400}.checkgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.checkbox{border:1px solid var(--line);border-radius:10px;padding:11px;display:flex;gap:9px;align-items:flex-start}.checkbox input{width:auto;margin-top:4px}.checkbox label{margin:0;font-weight:600}.checkbox textarea{margin-top:7px;min-height:55px}
+.inlinecheck{display:flex;gap:8px;align-items:center;margin:7px 0}.inlinecheck input{width:auto}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.btn{border:0;border-radius:10px;padding:12px 17px;font-weight:700;cursor:pointer;font-size:14px}.primary{background:var(--blue);color:#fff}.secondary{background:#e8eff7;color:var(--navy)}.success{background:var(--teal);color:#fff}.btn:hover{filter:brightness(.96);transform:translateY(-1px)}
+.note{background:#fff8e8;border:1px solid #f3dfb3;border-radius:10px;padding:12px 14px;color:#73551d;font-size:13px}
+#preview{background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px;min-height:180px;overflow:auto}
+.doc{font-family:Arial,sans-serif;color:#172033;font-size:13px;line-height:1.55}.doc h1{text-align:center;font-size:19px;color:#142b4a;margin:0 0 5px}.doc h2{font-size:15px;color:#174c78;border-bottom:1px solid #ccd8e5;padding-bottom:4px;margin:22px 0 8px}.doc h3{font-size:13px;color:#1f5c91;margin:13px 0 5px}.doc p{margin:5px 0}.doc table{border-collapse:collapse;width:100%;margin:8px 0 13px}.doc th,.doc td{border:1px solid #aebdca;padding:7px;vertical-align:top;text-align:left}.doc th{background:#eaf1f8}.doc ul,.doc ol{padding-left:22px;margin:5px 0}.doc .center{text-align:center}.doc .meta{font-size:12px;color:#536579}.doc .pagebreak{page-break-before:always}
+footer{text-align:center;color:#7b8a9b;font-size:12px;padding:20px}
+@media(max-width:850px){.wrap{grid-template-columns:1fr}.sidebar{position:static}.sidebar nav{display:grid;grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid2,.grid3,.checkgrid{grid-template-columns:1fr}.card{padding:16px}.hero{padding:27px 20px}.wrap{padding:0 12px 40px}}
+@media print{body{background:#fff}.hero,.sidebar,.actions,.card.formcard,footer{display:none!important}.wrap{display:block;margin:0;padding:0;max-width:none}#preview{border:0;padding:0}.doc{font-size:11pt}}
+</style>
+</head>
+<body>
+<header class="hero">
+ <span class="tag">PERANGKAT GURU • GENERATOR DOKUMEN</span>
+ <h1>RPM Generator</h1>
+ <p>Form interaktif untuk menyusun Rencana Pembelajaran Mendalam. Isi keputusan profesional guru, bangun rancangan pembelajaran, tinjau hasil, lalu ekspor dokumen yang kompatibel dengan Microsoft Word.</p>
+</header>
+<div class="wrap">
+<aside class="sidebar">
+ <strong>Alur pengisian</strong>
+ <nav>
+  <div class="navitem"><b>1</b> Identitas kelas</div><div class="navitem"><b>2</b> Keputusan guru</div>
+  <div class="navitem"><b>3</b> PID & Rumah Pendidikan</div><div class="navitem"><b>4</b> Rancangan & asesmen</div>
+  <div class="navitem"><b>5</b> Pertemuan & hasil</div>
+ </nav>
+ <div class="hint">Data tersimpan sementara di halaman ini. Unduh dokumen sebelum menutup atau memuat ulang browser.</div>
+</aside>
+<main>
+<section class="card formcard">
+ <div class="cardhead"><div class="num">01</div><div><h2>Identitas dan konteks kelas</h2><p class="sub">Lengkapi konteks pembelajaran yang akan dirancang.</p></div></div>
+ <div class="grid2">
+  <div class="field"><label>Jenjang / Kelas</label><input id="kelas" value="SMA kelas X"></div>
+  <div class="field"><label>Mata pelajaran</label><input id="mapel" value="Informatika"></div>
+  <div class="field"><label>Topik / Materi pokok</label><input id="topik" value="Teknologi Informasi dan Komunikasi (TIK) — pemformatan dokumen dasar Microsoft Word"></div>
+  <div class="field"><label>Fase Kurikulum Nasional</label><input id="fase" placeholder="Contoh: Fase E"></div>
+  <div class="field"><label>Jumlah peserta didik</label><input id="jumlah" type="number" min="1" placeholder="Contoh: 36"></div>
+  <div class="field"><label>Alokasi waktu total</label><input id="alokasi" placeholder="Contoh: 2 × 45 menit"></div>
+ </div>
+ <div class="field"><label>Kondisi kelas / kebutuhan khusus yang perlu diperhatikan</label><textarea id="kondisi" placeholder="Contoh: kemampuan awal beragam, ketersediaan komputer terbatas, sebagian peserta didik memerlukan pendampingan langkah demi langkah."></textarea></div>
+</section>
+<section class="card formcard">
+ <div class="cardhead"><div class="num">02</div><div><h2>Keputusan profesional guru</h2><p class="sub">Bagian ini menjadi landasan utama. Generator tidak mengubah tujuan pembelajaran yang Anda tulis.</p></div></div>
+ <div class="field"><label>1. Masalah utama pembelajaran</label><textarea id="masalah" placeholder="Tuliskan masalah nyata yang ditemukan di kelas."></textarea></div>
+ <div class="field"><label>2. Tujuan pembelajaran hasil analisis CP <span class="small">(dipertahankan persis seperti input)</span></label><textarea id="tp" rows="4">menerapkan teknik pemformatan dokumen dasar MSWord (margin, tabulasi, spasi, perataan teks, dan pengaturan halaman) secara rapi dan profesional.</textarea></div>
+ <div class="grid2">
+  <div class="field"><label>3. Model pembelajaran yang dipilih</label><select id="model"><option value="">Pilih model</option><option>Problem-Based Learning (PBL)</option><option>Project-Based Learning (PjBL)</option><option>Discovery Learning</option><option>Inquiry Learning</option><option>Cooperative Learning</option><option>Model lainnya (jelaskan pada sintaks)</option></select></div>
+  <div class="field"><label>Jumlah pertemuan</label><input id="pertemuan" type="number" min="1" value="1"></div>
+ </div>
+ <div class="field"><label>Urutan sintaks model (satu sintaks per baris)</label><textarea id="sintaks" placeholder="Sintak 1 — Orientasi peserta didik pada masalah&#10;Sintak 2 — Mengorganisasikan peserta didik untuk belajar&#10;..."></textarea></div>
+ <div class="note">Catatan: untuk PBL, Anda dapat memasukkan lima sintaks PBL sesuai urutan yang digunakan sekolah. Jangan mengisi tujuan pembelajaran dengan rumusan yang belum disahkan guru.</div>
+</section>
+<section class="card formcard">
+ <div class="cardhead"><div class="num">03</div><div><h2>Integrasi PID dan Rumah Pendidikan</h2><p class="sub">Pilih hanya fitur yang benar-benar digunakan, lalu jelaskan fungsi dan waktu penggunaannya.</p></div></div>
+ <h3>Fitur Papan Interaktif Digital (PID / IFP)</h3>
+ <div class="checkgrid" id="pidchecks">
+  <div class="checkbox"><input type="checkbox" id="pid1"><div><label for="pid1">Layar sentuh multi-touch</label><textarea id="pid1t" placeholder="Tujuan penggunaan"></textarea></div></div>
+  <div class="checkbox"><input type="checkbox" id="pid2"><div><label for="pid2">Anotasi dan menulis digital</label><textarea id="pid2t" placeholder="Tujuan penggunaan"></textarea></div></div>
+  <div class="checkbox"><input type="checkbox" id="pid3"><div><label for="pid3">Integrasi multimedia (video/simulasi)</label><textarea id="pid3t" placeholder="Tujuan penggunaan"></textarea></div></div>
+  <div class="checkbox"><input type="checkbox" id="pid4"><div><label for="pid4">Berbagi layar nirkabel</label><textarea id="pid4t" placeholder="Tujuan penggunaan"></textarea></div></div>
+  <div class="checkbox"><input type="checkbox" id="pid5"><div><label for="pid5">Penyimpanan dan berbagi dokumen</label><textarea id="pid5t" placeholder="Tujuan penggunaan"></textarea></div></div>
+  <div class="checkbox"><input type="checkbox" id="pid6"><div><label for="pid6">Akses internet dan aplikasi langsung di PID</label><textarea id="pid6t" placeholder="Tujuan penggunaan"></textarea></div></div>
+ </div>
+ <h3 style="margin-top:20px">Rumah Pendidikan Kemendikdasmen</h3>
+ <div class="checkgrid">
+  <div class="checkbox"><input type="checkbox" id="ruang1"><label for="ruang1">Ruang Murid</label></div>
+  <div class="checkbox"><input type="checkbox" id="ruang2"><label for="ruang2">Ruang GTK</label></div>
+  <div class="checkbox"><input type="checkbox" id="ruang3"><label for="ruang3">Ruang Bahasa</label></div>
+ </div>
+ <div class="field" style="margin-top:13px"><label>Jenis konten / fitur yang dipilih</label><textarea id="konten" placeholder="Contoh: video pembelajaran, modul ajar, buku digital, bank soal, atau sumber kebahasaan. Tuliskan nama konten jika sudah diketahui."></textarea></div>
+ <div class="field"><label>Rencana penggunaan di kelas (cara dan waktu)</label><textarea id="rencanakonten" placeholder="Jelaskan siapa yang mengakses, bagaimana cara mengakses, dan pada tahap pembelajaran mana konten digunakan."></textarea></div>
+</section>
+<section class="card formcard">
+ <div class="cardhead"><div class="num">04</div><div><h2>Desain pembelajaran dan asesmen</h2><p class="sub">Tambahkan rincian kontekstual agar rancangan dapat langsung dilaksanakan.</p></div></div>
+ <div class="field"><label>Rumusan masalah kontekstual / pertanyaan pemantik utama</label><textarea id="rumusan" placeholder="Contoh: Bagaimana menghasilkan dokumen yang rapi, mudah dibaca, dan sesuai kebutuhan pembaca dengan menerapkan pengaturan halaman dan pemformatan yang tepat?"></textarea></div>
+ <div class="field"><label>Integrasi lintas disiplin (minimal dua mata pelajaran)</label><textarea id="lintas" placeholder="Contoh: Bahasa Indonesia — struktur dan keterbacaan teks; Sejarah — penyajian informasi sejarah secara runtut dan akurat."></textarea></div>
+ <div class="field"><label>Dimensi profil lulusan (pilih/tulis 2–3 dimensi dan alasan)</label><textarea id="dimensi" placeholder="Contoh: Penalaran kritis, kreativitas, kolaborasi — jelaskan kaitannya dengan topik dan masalah kelas."></textarea></div>
+ <div class="field"><label>Praktik pedagogis dan peran kemitraan</label><textarea id="pedagogis" placeholder="Peran guru sebagai fasilitator, peserta didik sebagai pemecah masalah, serta peran teman sebaya/mitra lain."></textarea></div>
+ <div class="field"><label>Lingkungan pembelajaran dan diferensiasi</label><textarea id="lingkungan" placeholder="Jelaskan penataan kelas, suasana aman dan menggembirakan, serta diferensiasi konten/proses/produk sesuai kesiapan dan kebutuhan peserta didik."></textarea></div>
+ <h3>Asesmen diagnostik</h3>
+ <div class="field"><label>Instrumen / pertanyaan diagnostik awal</label><textarea id="diagnostik" placeholder="Tuliskan satu kuis singkat atau pertanyaan pemantik untuk memetakan pengetahuan awal."></textarea></div>
+ <div class="field"><label>Pelaksanaan melalui PID dan tindak lanjut diferensiasi</label><textarea id="bacadiag" placeholder="Jelaskan cara peserta didik merespons di PID dan bagaimana hasilnya digunakan untuk pengelompokan/pendampingan."></textarea></div>
+ <h3>Asesmen formatif</h3>
+ <div class="field"><label>Instrumen formatif 1 dan rubrik sederhana</label><textarea id="formatif1" placeholder="Contoh: observasi praktik mengatur margin dan orientasi halaman; rubrik: tepat, cukup tepat, perlu bimbingan."></textarea></div>
+ <div class="field"><label>Instrumen formatif 2 dan rubrik sederhana</label><textarea id="formatif2" placeholder="Contoh: telaah teman sebaya terhadap tabulasi, spasi, dan perataan; sertakan kriteria."></textarea></div>
+ <h3>Asesmen sumatif</h3>
+ <div class="field"><label>Tugas / proyek autentik berbasis masalah</label><textarea id="sumatif" placeholder="Tuliskan produk dokumen, konteks penggunaannya, ketentuan, dan cara pengumpulan."></textarea></div>
+ <div class="field"><label>Rubrik sumatif (minimal 3 aspek × 4 level)</label><textarea id="rubrik" placeholder="Aspek 1: ketepatan pengaturan halaman — Level 4 ... Level 1 ...&#10;Aspek 2: konsistensi format ...&#10;Aspek 3: kerapian dan keterbacaan ..."></textarea></div>
+</section>
+<section class="card formcard">
+ <div class="cardhead"><div class="num">05</div><div><h2>Pengalaman belajar per pertemuan</h2><p class="sub">Isi durasi dan aktivitas. Satu blok deskripsi dapat memuat tahap memahami, mengaplikasi, dan merefleksi.</p></div></div>
+ <div class="grid3">
+  <div class="field"><label>Durasi pembuka (menit)</label><input id="durPembuka" type="number" value="10"></div>
+  <div class="field"><label>Durasi inti (menit)</label><input id="durInti" type="number" value="70"></div>
+  <div class="field"><label>Durasi penutup (menit)</label><input id="durPenutup" type="number" value="10"></div>
+ </div>
+ <div class="field"><label>Kegiatan pembuka — menggembirakan, pemantik PID, aktivasi pengetahuan awal</label><textarea id="pembuka" placeholder="Tuliskan langkah guru dan peserta didik secara operasional."></textarea></div>
+ <div class="field"><label>Tahap MEMAHAMI — membangun konsep dan menggunakan konten Rumah Pendidikan</label><textarea id="memahami" placeholder="Tuliskan aktivitas, sumber belajar, pertanyaan pemandu, dan dukungan untuk peserta didik."></textarea></div>
+ <div class="field"><label>Tahap MENGAPLIKASI — penyelidikan/pemecahan masalah, kolaborasi dan presentasi PID</label><textarea id="mengaplikasi" placeholder="Tuliskan tugas kelompok/individu, penggunaan PID, produk, dan umpan balik."></textarea></div>
+ <div class="field"><label>Tahap MEREFLEKSI — refleksi terstruktur</label><textarea id="merefleksi" placeholder="Tuliskan refleksi peserta didik, bukti belajar, dan tindak lanjut guru."></textarea></div>
+ <div class="field"><label>Kegiatan penutup — sintesis, koneksi berikutnya, penyimpanan catatan PID</label><textarea id="penutup" placeholder="Tuliskan rangkuman, pesan kunci, tindak lanjut, dan cara berbagi catatan."></textarea></div>
+ <div class="field"><label>Catatan adaptasi untuk pertemuan berikutnya (bila lebih dari satu)</label><textarea id="lanjutan" placeholder="Tuliskan kesinambungan tugas, revisi produk, atau tindak lanjut hasil asesmen."></textarea></div>
+</section>
+<div class="actions">
+ <button class="btn primary" onclick="generate()">✦ Buat / Perbarui Pratinjau RPM</button>
+ <button class="btn success" onclick="downloadWord()">⬇ Unduh Dokumen Word</button>
+ <button class="btn secondary" onclick="window.print()">Cetak / Simpan PDF</button>
+ <button class="btn secondary" onclick="resetForm()">Reset Form</button>
+</div>
+<section class="card">
+ <div class="cardhead"><div class="num">✓</div><div><h2>Pratinjau dokumen RPM</h2><p class="sub">Periksa hasil sebelum mengunduh. Isian yang masih kosong akan ditandai agar mudah dilengkapi.</p></div></div>
+ <div id="preview"><p class="small">Pratinjau akan muncul setelah tombol “Buat / Perbarui Pratinjau RPM” ditekan.</p></div>
+</section>
+</main>
+</div>
+<footer>RPM Generator • Berjalan lokal di browser • Tidak mengirim data ke server</footer>
+<script>
+const $=id=>document.getElementById(id);
+const val=id=>($(id)?.value||"").trim();
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const lines=s=>esc(s).replace(/\n/g,"<br>");
+const para=(label,id)=>`<p><b>${label}:</b> ${val(id)?lines(val(id)):'<i>[Belum diisi]</i>'}</p>`;
+function selectedRooms(){let a=[];if($("ruang1").checked)a.push("Ruang Murid");if($("ruang2").checked)a.push("Ruang GTK");if($("ruang3").checked)a.push("Ruang Bahasa");return a.length?a.join(", "):"[Belum dipilih]"}
+function generate(){
+ let pids=[["Layar sentuh multi-touch","pid1","pid1t"],["Anotasi dan menulis digital","pid2","pid2t"],["Integrasi multimedia (video/simulasi)","pid3","pid3t"],["Berbagi layar nirkabel","pid4","pid4t"],["Penyimpanan dan berbagi dokumen","pid5","pid5t"],["Akses internet dan aplikasi langsung di PID","pid6","pid6t"]];
+ let pidRows=pids.filter(x=>$(x[1]).checked).map(x=>`<tr><td>${x[0]}</td><td>${val(x[2])?lines(val(x[2])):'[Tujuan belum diisi]'}</td></tr>`).join("")||'<tr><td colspan="2">Belum ada fitur PID yang dipilih.</td></tr>';
+ let syntax=val("sintaks").split("\n").filter(x=>x.trim()).map(x=>`<li>${esc(x)}</li>`).join("")||"<li>[Sintaks model belum diisi]</li>";
+ let n=Math.max(1,Math.min(20,Number(val("pertemuan"))||1));
+ let meetings="";
+ for(let i=1;i<=n;i++){meetings+=`<h3>Pertemuan ${i}</h3><p><b>Alokasi:</b> ${esc(val("durPembuka")||"10")} menit pembuka + ${esc(val("durInti")||"70")} menit inti + ${esc(val("durPenutup")||"10")} menit penutup.</p>${para("Pembuka", "pembuka")}${para("Memahami", "memahami")}${para("Mengaplikasi", "mengaplikasi")}${para("Merefleksi", "merefleksi")}${para("Penutup", "penutup")}${i<n?para("Koneksi/tindak lanjut", "lanjutan"):""}`}
+ let html=`<div class="doc">
+ <h1>RENCANA PEMBELAJARAN MENDALAM (RPM)</h1><p class="center"><b>${esc(val("mapel")||"[Mata pelajaran]")} • ${esc(val("topik")||"[Topik]")}</b></p>
+ <p class="center meta">Dokumen perencanaan pembelajaran • Kurikulum Nasional</p>
+ <h2>IDENTITAS PEMBELAJARAN</h2><table><tr><th>Komponen</th><th>Keterangan</th></tr>
+ <tr><td>Jenjang/Kelas</td><td>${esc(val("kelas")||"[Belum diisi]")}</td></tr><tr><td>Mata pelajaran</td><td>${esc(val("mapel")||"[Belum diisi]")}</td></tr><tr><td>Topik/Materi</td><td>${esc(val("topik")||"[Belum diisi]")}</td></tr><tr><td>Fase</td><td>${esc(val("fase")||"[Belum diisi]")}</td></tr><tr><td>Jumlah peserta didik</td><td>${esc(val("jumlah")||"[Belum diisi]")}</td></tr><tr><td>Kondisi kelas</td><td>${val("kondisi")?lines(val("kondisi")):"[Belum diisi]"}</td></tr><tr><td>Alokasi waktu</td><td>${esc(val("alokasi")||"[Belum diisi]")}</td></tr></table>
+ <h2>1. IDENTIFIKASI</h2>${para("Masalah utama pembelajaran", "masalah")}
+ <h3>a. Kesiapan peserta didik</h3><p>Guru memetakan pengetahuan prasyarat, pengalaman menggunakan perangkat/aplikasi yang relevan, dan variasi kesiapan peserta didik melalui asesmen diagnostik. Potensi miskonsepsi yang perlu diperiksa disesuaikan dengan topik, misalnya anggapan bahwa kerapian dokumen cukup dicapai dengan menekan spasi berulang, atau bahwa tabulasi sama dengan membuat jarak menggunakan tombol spasi. Kondisi kelas menjadi dasar pengaturan kelompok, pendampingan, dan pilihan cara belajar.</p>
+ <h3>b. Karakteristik materi</h3><p>Materi berfokus pada konsep dan praktik inti sesuai topik: memahami fungsi fitur, memilih pengaturan yang tepat, menerapkannya secara konsisten, serta menilai hasil dokumen berdasarkan kerapian, keterbacaan, dan kebutuhan pengguna. Kompleksitas bergerak dari pengenalan fitur, penerapan terarah, hingga pemecahan masalah dan evaluasi produk. Keterkaitan lintas disiplin dijabarkan pada bagian integrasi.</p>
+ <h3>c. Dimensi profil lulusan</h3>${para("Dimensi terpilih dan keterkaitannya", "dimensi")}
+ <h2>2. DESAIN PEMBELAJARAN</h2><h3>a. Tujuan pembelajaran (ditampilkan sesuai input guru)</h3><p>${val("tp")?lines(val("tp")):"[Tujuan pembelajaran belum diisi]"}</p>
+ <h3>b. Rumusan masalah pembelajaran</h3>${para("Rumusan masalah/pertanyaan pemantik", "rumusan")}
+ <h3>c. Integrasi lintas disiplin</h3>${para("Mata pelajaran dan titik integrasi", "lintas")}
+ <h3>d. Kerangka pembelajaran</h3><p><b>Model:</b> ${esc(val("model")||"[Belum dipilih]")}</p><b>Sintaks model:</b><ol>${syntax}</ol>${para("Praktik pedagogis dan kemitraan pembelajaran", "pedagogis")}${para("Lingkungan pembelajaran dan diferensiasi", "lingkungan")}
+ <h3>Pemanfaatan PID</h3><table><tr><th>Fitur terpilih</th><th>Tujuan penggunaan</th></tr>${pidRows}</table>
+ <h2>3. ASESMEN</h2><h3>a. Asesmen diagnostik</h3>${para("Instrumen diagnostik awal", "diagnostik")}${para("Pelaksanaan melalui PID dan pemanfaatan hasil untuk diferensiasi", "bacadiag")}
+ <h3>b. Asesmen formatif</h3>${para("Instrumen formatif 1 dan rubrik", "formatif1")}${para("Instrumen formatif 2 dan rubrik", "formatif2")}
+ <h3>c. Asesmen sumatif</h3>${para("Tugas/proyek autentik berbasis masalah", "sumatif")}${para("Rubrik sumatif — minimal 3 aspek dan 4 level", "rubrik")}
+ <h2>4. PENGALAMAN BELAJAR</h2><p>Setiap kegiatan dirancang dengan prinsip berkesadaran, bermakna, dan menggembirakan. Guru memberi ruang pilihan, umpan balik, kolaborasi, dan refleksi sesuai kesiapan peserta didik.</p>${meetings}
+ <h2>5. INTEGRASI RUMAH PENDIDIKAN</h2><table><tr><th>Konten/fitur</th><th>Ruang</th><th>Cara akses</th><th>Waktu penggunaan</th><th>Tujuan</th></tr><tr><td>${val("konten")?lines(val("konten")):"[Nama konten belum diisi]"}</td><td>${esc(selectedRooms())}</td><td>${val("rencanakonten")?lines(val("rencanakonten")):"[Cara akses belum diisi]"}</td><td>${val("rencanakonten")?lines(val("rencanakonten")):"[Waktu belum dirinci]"}</td><td>Mendukung pemahaman konsep, penyelidikan, latihan, atau refleksi sesuai konten yang dipilih guru.</td></tr></table>
+ <h2>6. PENUTUP DAN REFLEKSI GURU</h2><p>Guru meninjau ketercapaian tujuan berdasarkan bukti asesmen, mengidentifikasi peserta didik yang memerlukan penguatan atau pengayaan, dan merencanakan tindak lanjut. Catatan/hasil kerja pada PID disimpan dan dibagikan melalui media kelas yang disepakati dengan tetap memperhatikan keamanan data peserta didik.</p>
+ <h2>GAMBARAN SUASANA KELAS YANG DIHARAPKAN</h2><p>Pembelajaran diharapkan berlangsung aktif, aman, inklusif, dan menyenangkan. Peserta didik berani mencoba, bertanya, bekerja sama, menerima umpan balik, serta mampu menjelaskan alasan di balik keputusan belajarnya. PID dan konten Rumah Pendidikan hadir sebagai alat bantu yang fungsional untuk memperjelas konsep, mendukung kolaborasi, dan mendokumentasikan proses belajar. Guru memfasilitasi perbedaan kesiapan sehingga setiap peserta didik memperoleh kesempatan untuk berkembang.</p>
+ <p class="meta" style="margin-top:25px">Catatan penyusunan: lengkapi seluruh bagian bertanda [Belum diisi] dan validasi kesesuaian rancangan dengan CP, kalender akademik, sarana sekolah, serta kebijakan satuan pendidikan sebelum digunakan.</p>
+ </div>`;
+ $("preview").innerHTML=html;
+ $("preview").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function downloadWord(){
+ if(!$("preview").querySelector(".doc"))generate();
+ const content=$("preview").innerHTML;
+ const doc=`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:Arial,sans-serif;font-size:11pt;line-height:1.5;color:#172033}.doc h1{text-align:center;font-size:18pt;color:#142b4a}.doc h2{font-size:14pt;color:#174c78;border-bottom:1px solid #ccd8e5;margin-top:20px}.doc h3{font-size:12pt;color:#1f5c91}.doc table{border-collapse:collapse;width:100%;margin:8px 0}.doc th,.doc td{border:1px solid #8798a8;padding:6px;vertical-align:top}.doc th{background:#eaf1f8}.center{text-align:center}.meta{font-size:9pt;color:#536579}</style></head><body>${content}</body></html>`;
+ const blob=new Blob(["\ufeff",doc],{type:"application/msword"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="RPM_Generator_Informatika_TIK.doc";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+}
+function resetForm(){if(confirm("Hapus seluruh isian form dan kembalikan data awal?")){document.querySelectorAll("input,textarea").forEach(x=>{if(x.type==="checkbox")x.checked=false;else if(x.id==="kelas")x.value="SMA kelas X";else if(x.id==="mapel")x.value="Informatika";else if(x.id==="topik")x.value="Teknologi Informasi dan Komunikasi (TIK) — pemformatan dokumen dasar Microsoft Word";else if(x.id==="tp")x.value="menerapkan teknik pemformatan dokumen dasar MSWord (margin, tabulasi, spasi, perataan teks, dan pengaturan halaman) secara rapi dan profesional.";else if(x.id==="pertemuan")x.value=1;else if(x.id==="durPembuka")x.value=10;else if(x.id==="durInti")x.value=70;else if(x.id==="durPenutup")x.value=10;else x.value=""});$("model").value="";$("preview").innerHTML='<p class="small">Pratinjau akan muncul setelah tombol dibuat ditekan.</p>';}}
+</script>
+</body></html>
